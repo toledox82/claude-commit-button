@@ -22,15 +22,15 @@ Open the Source Control panel and click the ✨ button next to **CHANGES**.
 
 ## Settings
 
-| Setting | Default | Values | Description |
-| --- | --- | --- | --- |
-| `claudeCommitButton.cliPath` | `""` | any path | Path to the Claude CLI. Empty = auto-detect from PATH. |
-| `claudeCommitButton.model` | `sonnet` | `haiku`, `sonnet`, `opus`, `fable` | Model used to generate the message. |
-| `claudeCommitButton.effort` | `low` | `low`, `medium`, `high`, `xhigh`, `max` | Effort level. |
+| Setting                      | Default  | Values                                  | Description                                            |
+| ---------------------------- | -------- | --------------------------------------- | ------------------------------------------------------ |
+| `claudeCommitButton.cliPath` | `""`     | any path                                | Path to the Claude CLI. Empty = auto-detect from PATH. |
+| `claudeCommitButton.model`   | `sonnet` | `haiku`, `sonnet`, `opus`, `fable`      | Model used to generate the message.                    |
+| `claudeCommitButton.effort`  | `low`    | `low`, `medium`, `high`, `xhigh`, `max` | Effort level.                                          |
 
 ## Optional: button inside the message box
 
-You can move the button *inside* the commit message box (Copilot-style) instead of the toolbar.
+You can move the button _inside_ the commit message box (Copilot-style) instead of the toolbar.
 
 ![Button inside the commit message box](images/inputbox-button.png)
 
@@ -49,12 +49,12 @@ This needs VS Code's proposed `scm/inputBox` API, so it **only works locally** (
 
 After this setup an extra setting becomes available:
 
-| Setting | Default | Values | Description |
-| --- | --- | --- | --- |
+| Setting                             | Default | Values         | Description                                                          |
+| ----------------------------------- | ------- | -------------- | -------------------------------------------------------------------- |
 | `claudeCommitButton.buttonLocation` | `input` | `input`, `top` | Where the button appears: inside the message box, or in the toolbar. |
 
 > This setting does nothing in the default `.vsix` build — it only takes effect once the proposed-API setup above is in place.
 
 ## License
 
-MIT © [Marcio Toledo](https://marciotoledo.com)
+MIT © [Marcio Toledo](https://marciotoledo.com/?ref=claude-commit-button)
