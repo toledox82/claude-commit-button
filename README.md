@@ -28,6 +28,24 @@ Open the Source Control panel and click the ✨ button next to **CHANGES**.
 | `claudeCommitButton.model`   | `sonnet` | `haiku`, `sonnet`, `opus`, `fable`      | Model used to generate the message.                    |
 | `claudeCommitButton.effort`  | `low`    | `low`, `medium`, `high`, `xhigh`, `max` | Effort level.                                          |
 
+### Windows: Claude installed under WSL or Git Bash
+
+The extension auto-detects Claude from your **Windows** `PATH`. If you installed the
+Claude CLI with npm on Windows, it's found automatically (the extension resolves the
+real `claude.exe` behind npm's shim scripts).
+
+But if Claude is installed **only inside WSL or Git Bash**, it lives on _that_
+environment's PATH — not the Windows PATH that VS Code sees — so auto-detect can't
+find it. Point the extension at the executable directly:
+
+```json
+"claudeCommitButton.cliPath": "C:\\Users\\<you>\\AppData\\Roaming\\npm\\node_modules\\@anthropic-ai\\claude-code\\bin\\claude.exe"
+```
+
+Run `where claude` (CMD/PowerShell) or `which claude` (Git Bash) to locate yours.
+On Windows, prefer the `.exe` over the `.cmd`/`.ps1`/extensionless shims — only the
+native `.exe` can receive the diff over stdin reliably.
+
 ## Optional: button inside the message box
 
 You can move the button _inside_ the commit message box (Copilot-style) instead of the toolbar.

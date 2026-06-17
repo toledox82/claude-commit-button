@@ -1,6 +1,7 @@
 const vscode = require('vscode')
 const { execFile } = require('child_process')
 const fs = require('fs')
+const path = require('path')
 
 let cachedCli = null
 
@@ -9,11 +10,28 @@ function detectClaude() {
 		const finder = process.platform === 'win32' ? 'where' : 'which'
 		execFile(finder, ['claude'], { timeout: 5000 }, (err, stdout) => {
 			if (err || !stdout) return resolve(null)
-			const first = String(stdout)
+			const lines = String(stdout)
 				.split(/\r?\n/)
 				.map((s) => s.trim())
-				.filter(Boolean)[0]
-			resolve(first || null)
+				.filter(Boolean)
+			if (!lines.length) return resolve(null)
+			if (process.platform !== 'win32') return resolve(lines[0])
+
+			// On Windows, npm installs three shims (claude, claude.cmd, claude.ps1).
+			// The extensionless one is a Unix shell script and the .cmd needs cmd.exe,
+			// so Node can't execFile them and pipe stdin reliably. Prefer the real exe.
+			const exe = lines.find((l) => l.toLowerCase().endsWith('.exe'))
+			if (exe) return resolve(exe)
+			// Derive claude.exe from any shim's directory (the npm global prefix).
+			const shim = lines.find((l) => l.toLowerCase().endsWith('.cmd')) || lines[0]
+			const exePath = path.join(
+				path.dirname(shim),
+				'node_modules', '@anthropic-ai', 'claude-code', 'bin', 'claude.exe',
+			)
+			if (fs.existsSync(exePath)) return resolve(exePath)
+			// Fall back to the .cmd shim if present, else whatever we got.
+			const cmd = lines.find((l) => l.toLowerCase().endsWith('.cmd'))
+			return resolve(cmd || lines[0])
 		})
 	})
 }
@@ -97,7 +115,12 @@ function activate(context) {
 						{ maxBuffer: 10 * 1024 * 1024, cwd: repo.rootUri.fsPath },
 						(err, stdout, stderr) => {
 							if (err) {
-								vscode.window.showErrorMessage('Claude failed: ' + (stderr || err.message))
+								const detail = stderr || err.message
+								const notFound = /ENOENT/.test(detail)
+								const hint = notFound
+									? ' — Claude CLI not found on PATH. Set "claudeCommitButton.cliPath" to your claude executable (on Windows, the claude.exe; if Claude is installed under WSL or Git Bash it won\'t be on the Windows PATH).'
+									: ''
+								vscode.window.showErrorMessage('Claude failed: ' + detail + hint)
 								resolve()
 								return
 							}
@@ -110,6 +133,9 @@ function activate(context) {
 							resolve()
 						},
 					)
+					// If the CLI can't be spawned (e.g. wrong path), stdin emits an
+					// error; swallow it so the execFile callback reports the real cause.
+					child.stdin.on('error', () => {})
 					child.stdin.write(prompt)
 					child.stdin.end()
 				}),
