@@ -1,6 +1,9 @@
 .git/**
 .gitignore
 .vscode/**
+.claude/**
 node_modules/**
 *.vsix
 CHANGELOG.md
+CLAUDE_COMMIT_BUTTON_FIX.md
+.vscodeignore

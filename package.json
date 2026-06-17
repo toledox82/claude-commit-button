@@ -2,7 +2,7 @@
 	"name": "claude-commit-button",
 	"displayName": "Claude Commit Button",
 	"description": "Generate commit messages with the Claude CLI.",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"publisher": "marciotoledo",
 	"author": {
 		"name": "Marcio Toledo",
@@ -31,6 +31,9 @@
 		"onStartupFinished"
 	],
 	"main": "./extension.js",
+	"scripts": {
+		"package": "vsce package --out dist/"
+	},
 	"contributes": {
 		"commands": [
 			{
