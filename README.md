@@ -10,7 +10,7 @@ A ✨ button appears in the Source Control toolbar. Click it: the extension read
 
 ## Install
 
-1. Download the `.vsix` from the [Releases](https://github.com/toledointeractive/claude-commit-button/releases) page.
+1. Download the `.vsix` from the [Releases](https://github.com/toledox82/claude-commit-button/releases) page.
 2. In VS Code: `Ctrl+Shift+P` → **Extensions: Install from VSIX…** → pick the file.
 3. Reload the window.
 

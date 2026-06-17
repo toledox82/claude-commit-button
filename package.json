@@ -12,7 +12,7 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/toledointeractive/claude-commit-button.git"
+		"url": "https://github.com/toledox82/claude-commit-button.git"
 	},
 	"engines": {
 		"vscode": "^1.84.0"
