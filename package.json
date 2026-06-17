@@ -1,0 +1,79 @@
+{
+	"name": "claude-commit-button",
+	"displayName": "Claude Commit Button",
+	"description": "Generate commit messages with the Claude CLI.",
+	"version": "0.1.0",
+	"publisher": "marciotoledo",
+	"author": {
+		"name": "Marcio Toledo",
+		"url": "https://marciotoledo.com"
+	},
+	"homepage": "https://marciotoledo.com",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/toledointeractive/claude-commit-button.git"
+	},
+	"engines": {
+		"vscode": "^1.84.0"
+	},
+	"categories": [
+		"SCM Providers"
+	],
+	"keywords": [
+		"git",
+		"commit",
+		"claude",
+		"ai",
+		"scm"
+	],
+	"activationEvents": [
+		"onStartupFinished"
+	],
+	"main": "./extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "claudeCommitButton.generate",
+				"title": "Generate Commit Message",
+				"icon": "$(sparkle)"
+			}
+		],
+		"menus": {
+			"scm/title": [
+				{
+					"command": "claudeCommitButton.generate",
+					"group": "navigation",
+					"when": "scmProvider == git"
+				}
+			]
+		},
+		"configuration": {
+			"title": "Claude Commit Button",
+			"properties": {
+				"claudeCommitButton.cliPath": {
+					"type": "string",
+					"default": "",
+					"description": "Path to the Claude CLI. Leave empty to auto-detect from PATH."
+				},
+				"claudeCommitButton.model": {
+					"type": "string",
+					"default": "sonnet",
+					"description": "Model."
+				},
+				"claudeCommitButton.effort": {
+					"type": "string",
+					"enum": [
+						"low",
+						"medium",
+						"high",
+						"xhigh",
+						"max"
+					],
+					"default": "low",
+					"description": "Effort level."
+				}
+			}
+		}
+	}
+}
