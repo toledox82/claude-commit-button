@@ -55,6 +55,10 @@ After this setup an extra setting becomes available:
 
 > This setting does nothing in the default `.vsix` build — it only takes effect once the proposed-API setup above is in place.
 
+## Support
+
+If this little ✨ button saved you some time and you'd like to give back, you can [buy me a coffee ☕](https://donate.stripe.com/9AQ7sCbcPg9963e5kl). Another way to help is to use one of the [referral links on my site](https://marciotoledo.com/links?ref=claude-commit-button) when signing up for services I recommend. It's totally optional and very appreciated — thanks! 😊
+
 ## License
 
 MIT © [Marcio Toledo](https://marciotoledo.com/?ref=claude-commit-button)
